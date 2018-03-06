@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       result.destroy
       render plain: "User #{params[:id]} destroy"
     else
-      render plain: "No such user #{params[:id]}"
+      render plain: "No such user #{params[:id]}", status: 404
     end
   end
 
@@ -41,7 +41,9 @@ class UsersController < ApplicationController
     end
   end
 
-    def user_params
-      params[:user].permit(:name, :email)
-    end
+  private
+
+  def user_params
+    params.require(:user).permit(:username)
+  end
 end
